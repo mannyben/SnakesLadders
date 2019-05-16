@@ -9,6 +9,7 @@ int rollDice()
     int roll;
     int min = 1; // the min number a die can roll is 1
     int max = 6;// this->dieSize; // the max value is the die size
+    int count = 0;
 
     roll = rand() % (max - min + 1) + min;
 
@@ -51,9 +52,14 @@ int main() {
     Game game;
 
     //Declaring and initializing the players, then placing them in an array playerArray
-    Player p1;
-    Player p2;
+    cout << "Enter number of players" << endl;
+    int numPlayers;
+    cin >> numPlayers;
+    for(int i = 1; i < numPlayers;i++){
+        Player p+i;
+    }
 
+// Need to edit for more players
     game.playerArray[0] = p1;
     game.playerArray[1] = p2;
 

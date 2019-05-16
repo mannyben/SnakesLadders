@@ -19,12 +19,16 @@ class Game {
 public:
     Block board[10][10];
     Player playerArray[2];
+    int roll = 0;
+    int count = 0;
 
 
     virtual ~Game();
     Game();
 
     bool isPlaying();
+    bool start();
+    bool nextTurn();
 
     void sleep();
 

@@ -12,6 +12,26 @@ Player::Player() {
     start = false;
 }
 
+// Changes location based on dice rolled
+void Player::move(int roll){
+    if(isHoled() = true){
+        if(roll = 6){
+            isHoled() = false;
+            Player.setXpos(PlayergetXpos() + roll);
+            if(Player.getXpos >=10){
+                int temp = Player.getXpos() - 10;
+                Player.setXpos(Player.getXpos() - 10);
+                Player.setYpos(Player.getYpos +1);
+            }
+        }
+
+    }
+    return getXpos();
+
+}
+
+
+
 /*
  * A player has won if they make it to square 100 or board[10][10]
  */
