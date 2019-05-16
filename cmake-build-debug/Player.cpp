@@ -72,10 +72,10 @@ void Player::setsqPos(int sqPos) {
         Player::setYpos(sqPos);
     }
     if (sqPos>=10){
-
-
-
-
+        int y = sqPos%10;
+        int x = (sqPos-y)%10;
+        Player::setXpos(x);
+        Player::setYpos(y);
     }
     }
 

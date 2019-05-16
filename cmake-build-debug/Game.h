@@ -6,20 +6,18 @@
 #define SNAKESLADDERS_GAME_H
 
 #include "conio.h"
-
-#import "Block.h"
-#import "Player.h"
+#include "Block.h"
+#include "Player.h"
 #include <array>
 #include <thread>         // std::this_thread::sleep_for
 #include <chrono>         // std::chrono::seconds
-#include <iostream>
 /**
  * Serves as the class containing the Board
  */
 class Game {
 
 public:
-    static Block board[10][10];
+    Block board[10][10];
     Player playerArray[2];
 
 
@@ -31,6 +29,8 @@ public:
     void DisplayBoard();
 
     void sleep();
+
+    void UpdateBoard(int xold, int yold, int xnew, int ynew, Player p);
 
     //Structure Test Functions
 
@@ -50,8 +50,9 @@ public:
 
     void snake3(Player p);
 
+    void turn(Player p);
 
-
+    int rollDice();
 
 
 };

@@ -1,24 +1,22 @@
-#include<stdio.h>
-#include<iostream>
+
 using namespace std;
-#include "Player.h"
 #include "Game.h"
 
 
 //Creating a game object
 
-Game game;
 
-int rollDice()
-{
-    int roll;
-    int min = 1; // the min number a die can roll is 1
-    int max = 6;// this->dieSize; // the max value is the die size
 
-    roll = rand() % (max - min + 1) + min;
-
-    return roll;
-}
+//int rollDice()
+//{
+//    int roll;
+//    int min = 1; // the min number a die can roll is 1
+//    int max = 6;// this->dieSize; // the max value is the die size
+//
+//    roll = rand() % (max - min + 1) + min;
+//
+//    return roll;
+//}
 //int turn(Player player, int square) { //We can replace the int player with the playerID
 //    int roll, next;
 //    while (true) {
@@ -44,45 +42,64 @@ int rollDice()
 //    }
 //}
 
-void turn (Player p) {
-    int rolled = rollDice();
-
-    if (p.getsqPos()==-1) {
-        if (rolled==6) {
-            p.setsqPos(0);
-            return;
-        }
-        else
-            return;
-
-    }
-    //Address the BHoled Condition
-    if (p.isHoled()) {
-        if (rolled != 6) {
-            std::cout << "Player " + std::to_string(p.getId()) + " ur still stuck in the hole!" << endl;
-            return;
-        }
-        else {
-            std::cout << "Player " + std::to_string(p.getId()) + " ur are out of the hole!" << endl;
-            return;
-        }
-    }
-
-    p.setsqPos(p.getsqPos()+rolled);
-
-    if(game.checkLadder(p))
-        std::cout << "You have gone up" << std::endl;
-
-    if (game.checkSnake(p))
-        std::cout << "You have been eaten" << std::endl;
-    
-}
+//void turn (Player p) {
+//    int rolled = rollDice();
+//
+//    if (p.getsqPos()==-1) {
+//        if (rolled==6) {
+//            p.setsqPos(0);
+//            return;
+//        }
+//        else
+//            return;
+//
+//    }
+//    //Address the BHoled Condition
+//    if (p.isHoled()) {
+//        if (rolled != 6) {
+//            std::cout << "Player " + std::to_string(p.getId()) + " ur still stuck in the hole!" << endl;
+//            return;
+//        }
+//        else {
+//            std::cout << "Player " + std::to_string(p.getId()) + " ur are out of the hole!" << endl;
+//            return;
+//        }
+//    }
+//
+//    //Old position is removed of player
+//    int oldx = p.getXpos();
+//    int oldy = p.getYpos();
+//
+//    p.setsqPos(p.getsqPos()+rolled);
+//
+//    int newx = p.getXpos();
+//    int newy = p.getYpos();
+//
+//
+//    game.UpdateBoard(oldx, oldy, newx, newy, p);
+//
+//    if(game.checkLadder(p)) {
+//        std::cout << "You have gone up" << std::endl;
+//        //NewPosition gets Player
+//        game.board[p.getXpos()][p.getYpos()].setPlayerOn(true);
+//        game.board[p.getXpos()][p.getYpos()].setPlayerId(p.getId());
+//    }
+//    if (game.checkSnake(p)) {
+//        std::cout << "You have been eaten" << std::endl;
+//        //NewPosition gets Player
+//        game.board[p.getXpos()][p.getYpos()].setPlayerOn(true);
+//        game.board[p.getXpos()][p.getYpos()].setPlayerId(p.getId());
+//
+//    }
+//}
 
 //We need a method to associate
 
 
 int main() {
 
+    Game game;
+    game= Game();
 
     //Declaring and initializing the players, then placing them in an array playerArray
     Player p1;
@@ -104,7 +121,7 @@ game.DisplayBoard();
     while (game.isPlaying()) {
         for (int i = 0; i<2; i++) {
             curr = game.playerArray[i];
-            //turn ()
+            game.turn(curr);
         }
 
     }

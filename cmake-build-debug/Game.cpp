@@ -3,8 +3,9 @@
 //
 
 #include "Game.h"
-#include <array>
-#include <thread>
+
+
+
 
 Game::Game() {
     //Setting all the pointers of the blocks to null
@@ -17,6 +18,7 @@ Game::Game() {
             board[i][j].setId((i*10)+j);
         }
     }
+
 
 
 
@@ -88,31 +90,116 @@ Game::Game() {
 
 Game::~Game() {}
 
+void Game::turn (Player p) {
+    int rolled = rollDice();
+
+    if (p.getsqPos()==-1) {
+        if (rolled==6) {
+            p.setsqPos(0);
+            return;
+        }
+        else
+            return;
+
+    }
+    //Address the BHoled Condition
+    if (p.isHoled()) {
+        if (rolled != 6) {
+            std::cout << "Player " + std::to_string(p.getId()) + " ur still stuck in the hole!" << std::endl;
+            return;
+        }
+        else {
+            std::cout << "Player " + std::to_string(p.getId()) + " ur are out of the hole!" << std::endl;
+            return;
+        }
+    }
+
+    //Old position is removed of player
+    int oldx = p.getXpos();
+    int oldy = p.getYpos();
+
+    p.setsqPos(p.getsqPos()+rolled);
+
+    int newx = p.getXpos();
+    int newy = p.getYpos();
+
+
+    UpdateBoard(oldx, oldy, newx, newy, p);
+
+    if(checkLadder(p)) {
+        std::cout << "You have gone up" << std::endl;
+        //NewPosition gets Player
+        board[p.getXpos()][p.getYpos()].setPlayerOn(true);
+        board[p.getXpos()][p.getYpos()].setPlayerId(p.getId());
+    }
+    if (checkSnake(p)) {
+        std::cout << "You have been eaten" << std::endl;
+        //NewPosition gets Player
+        board[p.getXpos()][p.getYpos()].setPlayerOn(true);
+        board[p.getXpos()][p.getYpos()].setPlayerId(p.getId());
+
+    }
+}
+
+int Game::rollDice()
+{
+    int roll;
+    int min = 1; // the min number a die can roll is 1
+    int max = 6;// this->dieSize; // the max value is the die size
+
+    roll = rand() % (max - min + 1) + min;
+
+    return roll;
+}
+
 /*
  * If the game detects that the player
  */
 
 
 void Game::ladder1(Player p){
+    int oldx = p.getXpos();
+    int oldy = p.getYpos();
+
     p.setXpos(4);
     p.setYpos(1);
     p.setsqPos(41);
+
+    int newx = p.getXpos();
+    int newy = p.getYpos();
+
+    Game::UpdateBoard(oldx, oldy, newx, newy, p);
 //    std::cout << "You have gone up" << std::endl;
 
 }
 void Game::ladder2(Player p){
+    int oldx = p.getXpos();
+    int oldy = p.getYpos();
+
     p.setXpos(7);
     p.setYpos(0);
     p.setsqPos(70);
-//    std::cout << "You have gone up" << std::endl;
 
+    int newx = p.getXpos();
+    int newy = p.getYpos();
+
+    Game::UpdateBoard(oldx, oldy, newx, newy, p);
+//    std::cout << "You have gone up" << std::endl;w
 }
 void Game::ladder3(Player p){
+    int oldx = p.getXpos();
+    int oldy = p.getYpos();
+
+
     p.setXpos(9);
     p.setYpos(7);
     p.setsqPos(97);
-//    std::cout << "You have gone up" << std::endl;
 
+    int newx = p.getXpos();
+    int newy = p.getYpos();
+
+    Game::UpdateBoard(oldx, oldy, newx, newy, p);
+//    std::cout << "You have gone up" << std::endl;
 }
 bool Game::checkLadder(Player p){
     int x =p.getXpos();
@@ -187,6 +274,18 @@ bool Game::checkSnake(Player p){
     }
 
 }
+
+void Game::UpdateBoard(int xold, int yold, int xnew, int ynew, Player p){
+
+    Game::board[xold][yold].setPlayerOn(false);
+    Game::board[xold][yold].setPlayerId(-1);
+
+
+    Game::board[xold][yold].setPlayerOn(true);
+    Game::board[xold][yold].setPlayerId(p.getId());
+
+
+};
 
 
 bool Game::isPlaying() {
