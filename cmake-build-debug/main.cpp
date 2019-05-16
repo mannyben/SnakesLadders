@@ -14,11 +14,11 @@ int rollDice()
 
     return roll;
 }
-int turn(int player, int square) { //We can replace the int player with the playerID
+int turn(Player player, int square) { //We can replace the int player with the playerID
     int roll, next;
     while (true) {
         roll = rollDice();
-        printf("Player %d, on square %d, rolls a %d", player, square, roll);
+        printf("Player %d, on square %d, rolls a %d", player.getId(), square, roll);
         if (square + roll > 100) {
             printf(" but cannot move.\n");
         } else {

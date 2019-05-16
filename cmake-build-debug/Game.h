@@ -17,7 +17,7 @@
 class Game {
 
 public:
-    Block *board[10][10];
+    Block board[10][10];
     Player playerArray[2];
 
 

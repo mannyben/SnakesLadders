@@ -16,12 +16,17 @@ private:
     bool LadderStart;
     bool LadderFin;
     bool LadderBody;
+    bool BlackH;
     bool PlayerOn;
 
 public:
     Block();
 
     bool isSnakeStart() const;
+
+    bool isBlackH() const;
+
+    void setBlackH(bool blackH);
 
     int getId() const;
 

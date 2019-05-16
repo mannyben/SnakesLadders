@@ -9,9 +9,11 @@ Block::Block() {
     PlayerOn=false;
     SnakeStart=false;
     SnakeFin=false;
+    SnakeBody=false;
     LadderStart=false;
     LadderFin=false;
     LadderBody=false;
+    BlackH = false;
     PlayerOn=false;
 }
 
@@ -77,4 +79,12 @@ int Block::getId() const {
 
 void Block::setId(int id) {
     ID = id;
+}
+
+bool Block::isBlackH() const {
+    return BlackH;
+}
+
+void Block::setBlackH(bool blackH) {
+    BlackH = blackH;
 }
