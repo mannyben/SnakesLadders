@@ -7,30 +7,11 @@
 Player::Player() {
     xpos = -1;
     ypos = -1;
+    sqPos = -1;
     holed = false;
     id = 0;
     start = false;
 }
-
-// Changes location based on dice rolled
-void Player::move(int roll){
-    if(isHoled() = true){
-        if(roll = 6){
-            isHoled() = false;
-            Player.setXpos(PlayergetXpos() + roll);
-            if(Player.getXpos >=10){
-                int temp = Player.getXpos() - 10;
-                Player.setXpos(Player.getXpos() - 10);
-                Player.setYpos(Player.getYpos +1);
-            }
-        }
-
-    }
-    return getXpos();
-
-}
-
-
 
 /*
  * A player has won if they make it to square 100 or board[10][10]
@@ -40,7 +21,7 @@ bool Player::won() {
 }
 
 
-int Player::getXpos() const {
+int Player::getXpos() {
     return xpos;
 }
 
@@ -48,7 +29,7 @@ void Player::setXpos(int xpos) {
     Player::xpos = xpos;
 }
 
-int Player::getYpos() const {
+int Player::getYpos() {
     return ypos;
 }
 
@@ -79,4 +60,22 @@ bool Player::isHoled() const {
 void Player::setHoled(bool holed) {
     Player::holed = holed;
 }
+
+int Player::getsqPos() const {
+    return sqPos;
+}
+
+void Player::setsqPos(int sqPos) {
+    Player::sqPos = sqPos;
+    if (sqPos<10) {
+        Player::setXpos(0);
+        Player::setYpos(sqPos);
+    }
+    if (sqPos>=10){
+
+
+
+
+    }
+    }
 

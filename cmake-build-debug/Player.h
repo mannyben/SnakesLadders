@@ -14,15 +14,20 @@ private:
     int id;
     bool start;
     bool holed;
+    int sqPos;
 
 public:
     Player();
 
-    int getXpos() const;
+    int getsqPos() const;
+
+    void setsqPos(int sqPos);
+
+    int getXpos() ;
 
     void setXpos(int xpos);
 
-    int getYpos() const;
+    int getYpos() ;
 
     void setYpos(int ypos);
 

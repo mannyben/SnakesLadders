@@ -15,7 +15,55 @@ Block::Block() {
     LadderBody=false;
     BlackH = false;
     PlayerOn=false;
+    PlayerID = -1;
 }
+
+
+void Block::Display() {
+    if (getId()<10) {
+        if (isPlayerOn())
+            std::cout << "[" + std::to_string(ID) + " " + std::to_string(PlayerID) + LadderD() + SnakeD() + BlackHD() + " ]";
+        else
+            std::cout << "[" + std::to_string(ID) + LadderD() + SnakeD() + BlackHD() + " ]";
+    }
+    else {
+        if (isPlayerOn())
+            std::cout << "[" + std::to_string(ID) + " " + std::to_string(PlayerID) + LadderD() + SnakeD() + BlackHD() + " ]";
+        else
+            std::cout << "[" + std::to_string(ID) + LadderD() + SnakeD() + BlackHD() + " ]";
+    }
+}
+
+//Display Method Helper Methods
+std::string Block::SnakeD(){
+    if (SnakeStart)
+        return "S~";
+    else if (SnakeFin)
+        return "~T";
+    else if (SnakeBody)
+        return "~~";
+    else
+        return "";
+};
+
+std::string Block::LadderD() {
+    if (LadderStart)
+        return "F=";
+    else if (LadderFin)
+        return "=B";
+    else if (LadderBody)
+        return "==";
+    else
+        return "";
+}
+
+std::string Block::BlackHD() {
+    if(BlackH)
+        return " ?";
+    else
+        return "";
+}
+//Display Helper Methods End
 
 bool Block::isSnakeStart() const {
     return SnakeStart;
@@ -87,4 +135,12 @@ bool Block::isBlackH() const {
 
 void Block::setBlackH(bool blackH) {
     BlackH = blackH;
+}
+
+int Block::getPlayerId() const {
+    return PlayerID;
+}
+
+void Block::setPlayerId(int playerId) {
+    PlayerID = playerId;
 }

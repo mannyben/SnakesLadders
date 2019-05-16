@@ -5,6 +5,8 @@
 #ifndef SNAKESLADDERS_GAME_H
 #define SNAKESLADDERS_GAME_H
 
+#include "conio.h"
+
 #import "Block.h"
 #import "Player.h"
 #include <array>
@@ -17,20 +19,38 @@
 class Game {
 
 public:
-    Block board[10][10];
+    static Block board[10][10];
     Player playerArray[2];
-    int roll = 0;
-    int count = 0;
 
 
     virtual ~Game();
     Game();
 
     bool isPlaying();
-    bool start();
-    bool nextTurn();
+
+    void DisplayBoard();
 
     void sleep();
+
+    //Structure Test Functions
+
+    bool checkLadder(Player p);
+
+    void ladder1(Player p);
+
+    void ladder2(Player p);
+
+    void ladder3(Player p);
+
+    bool checkSnake(Player p);
+
+    void snake1(Player p);
+
+    void snake2(Player p);
+
+    void snake3(Player p);
+
+
 
 
 

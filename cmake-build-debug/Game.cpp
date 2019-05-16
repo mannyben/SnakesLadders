@@ -4,6 +4,7 @@
 
 #include "Game.h"
 #include <array>
+#include <thread>
 
 Game::Game() {
     //Setting all the pointers of the blocks to null
@@ -88,8 +89,106 @@ Game::Game() {
 Game::~Game() {}
 
 /*
- * If the game detects that the playaer
+ * If the game detects that the player
  */
+
+
+void Game::ladder1(Player p){
+    p.setXpos(4);
+    p.setYpos(1);
+    p.setsqPos(41);
+//    std::cout << "You have gone up" << std::endl;
+
+}
+void Game::ladder2(Player p){
+    p.setXpos(7);
+    p.setYpos(0);
+    p.setsqPos(70);
+//    std::cout << "You have gone up" << std::endl;
+
+}
+void Game::ladder3(Player p){
+    p.setXpos(9);
+    p.setYpos(7);
+    p.setsqPos(97);
+//    std::cout << "You have gone up" << std::endl;
+
+}
+bool Game::checkLadder(Player p){
+    int x =p.getXpos();
+    int y = p.getYpos();
+    int sq = x * 10 + y;
+    int boardID1 = Game::board[0][1].getId();
+    int boardID2 = Game::board[0][7].getId();
+    int boardID3 = Game::board[7][5].getId();
+
+    if(boardID1 == sq) {
+        ladder1(p);
+        return true;
+    }
+    else if(boardID2 == sq){
+        ladder2(p);
+        return true;
+    }
+    else if(boardID3 == sq){
+        ladder3(p);
+        return true;
+    }
+    else{
+        return false;
+    }
+
+
+}
+void Game::snake1(Player p){
+    p.setXpos(0);
+    p.setYpos(4);
+    p.setsqPos(4);
+//    std::cout << "You have been eaten" << std::endl;
+}
+
+void Game::snake2(Player p){
+    p.setXpos(0);
+    p.setYpos(8);
+    p.setsqPos(8);
+//    std::cout << "You have been eaten" << std::endl;
+}
+void Game::snake3(Player p){
+    p.setXpos(3);
+    p.setYpos(8);
+    p.setsqPos(38);
+//    std::cout << "You have been eaten" << std::endl;
+}
+
+bool Game::checkSnake(Player p){
+    int x =p.getXpos();
+    int y = p.getYpos();
+    int sq = x * 10 + y;
+    int boardID1 = Game::board[9][4].getId();
+    int boardID2 = Game::board[2][6].getId();
+    int boardID3 = Game::board[6][8].getId();
+
+
+    int temp[p.getXpos()][p.getYpos()];
+    if(boardID1 == sq) {
+        snake1(p);
+        return true;
+    }
+    else if(boardID2 == sq){
+        snake2(p);
+        return true;
+    }
+    else if(boardID3 == sq){
+        snake2(p);
+        return true;
+    }
+    else{
+        return false;
+    }
+
+}
+
+
 bool Game::isPlaying() {
     for (int i = 0; i<2; i++)
         if(playerArray[i].won())
@@ -97,7 +196,42 @@ bool Game::isPlaying() {
 
     return true;
 }
+
+void Game::DisplayBoard() {
+
+    std::cout<<"Key:" << std::endl;
+    std::cout<<"Each Box has: [Box# PlayerID(ip) SnakePart(ip) LadderPart(ip) BlackHole(ip)]" << std::endl;
+    std::cout<<"ip - values only shown if they are present " << std::endl;
+    std::cout<<"'F=' = Start of Ladder" << std::endl;
+    std::cout<<"'==' = Body of Ladder" << std::endl;
+    std::cout<<" '=B' = End of Ladder" << std::endl;
+    std::cout << "'S~' = Head of Snake" << std::endl;
+    std::cout << "'~~' = Body of Snake" << std::endl;
+    std::cout<<" 'T~' = Tail of Snake" << std::endl;
+    std::cout << "' ?' = BlackHole" << std::endl;
+    std::cout << "" << std::endl;
+
+    if (playerArray[0].getsqPos()==-1)
+        std::cout << "P1" << std::endl;
+    if (playerArray[1].getsqPos()==-1)
+        std::cout << "P2" << std::endl;
+
+for (int i = 0; i<10; i++) {
+    std::cout.width(500);
+    for (int j = 0; j < 10; j++) {
+        std::cout << " ";
+        board[i][j].Display();
+        std::cout << " ";
+    }
+    std::cout << std::endl;
+}
+}
+
+
+
 //
 //bool Game::sleep() { //Gotta figure this one out
-//    std::this.thread::sleep_for (std::chrono::seconds(1));
-//}
+std::chrono::milliseconds timespan(111605); // or whatever
+
+//std::this_thread::sleep_for(timespan);
+////}

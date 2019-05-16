@@ -4,7 +4,8 @@
 
 #ifndef SNAKESLADDERS_BLOCK_H
 #define SNAKESLADDERS_BLOCK_H
-
+#import "iostream"
+#include <string>
 
 class Block {
 private:
@@ -18,9 +19,23 @@ private:
     bool LadderBody;
     bool BlackH;
     bool PlayerOn;
+    int PlayerID;
 
 public:
     Block();
+
+    void Display();
+
+    std::string SnakeD();
+
+    std::string LadderD();
+
+    std:: string BlackHD();
+
+
+    int getPlayerId() const;
+
+    void setPlayerId(int playerId);
 
     bool isSnakeStart() const;
 
@@ -55,6 +70,7 @@ public:
     void setLadderBody(bool ladderBody);
 
     bool isPlayerOn() const;
+
 
     void setPlayerOn(bool playerOn);
 
