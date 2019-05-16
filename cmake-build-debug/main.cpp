@@ -1,6 +1,8 @@
 #include<stdio.h>
 #include<iostream>
 using namespace std;
+#include "Player.h"
+#include "Game.h"
 
 int rollDice()
 {
@@ -42,6 +44,29 @@ int turn(int player, int square) { //We can replace the int player with the play
 
 int main() {
 
+
+
+    //Creating a game object
+
+    Game game;
+
+    //Declaring and initializing the players, then placing them in an array playerArray
+    Player p1;
+    Player p2;
+
+    game.playerArray[0] = p1;
+    game.playerArray[1] = p2;
+
+    Player curr; //temporary player object used to make syntax easier
+
+    while (game.isPlaying()) {
+        for (int i = 0; i<2; i++) {
+            curr = game.playerArray[i];
+            //turn ()
+        }
+
+    }
+
     //Declare and Initialize Player Objects
     //Place them in an array
     //Throw the whole process in a while loop?
@@ -50,11 +75,11 @@ int main() {
     //turn(Player p, Square s)
      //if (p.wins)
         //Game.isPlaying = false;
-    }
+
     //Game.Display
 
 
-}
+
 
     return 0;
 }
