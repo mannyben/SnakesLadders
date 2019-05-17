@@ -22,6 +22,8 @@ private:
     int PlayerID;
 
 public:
+    std::string printPlayer();
+
     Block();
 
     void Display();

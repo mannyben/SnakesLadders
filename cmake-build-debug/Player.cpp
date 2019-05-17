@@ -17,7 +17,7 @@ Player::Player() {
  * A player has won if they make it to square 100 or board[10][10]
  */
 bool Player::won() {
-    return  (getXpos()>= 10 && getYpos() >= 10);
+    return  (getsqPos()>=99);
 }
 
 

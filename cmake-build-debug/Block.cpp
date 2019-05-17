@@ -23,19 +23,26 @@ Block::Block() {
 void Block::Display() {
     if (getId()<10) {
         if (isPlayerOn())
-            std::cout << "[" + std::to_string(ID) + " " + std::to_string(PlayerID) + LadderD() + SnakeD() + BlackHD() + " ]";
+            std::cout << "[" + std::to_string(ID) + " " + printPlayer() + LadderD() + SnakeD() + BlackHD() + " ]";
         else
             std::cout << "[" + std::to_string(ID) + LadderD() + SnakeD() + BlackHD() + " ]";
     }
     else {
         if (isPlayerOn())
-            std::cout << "[" + std::to_string(ID) + " " + std::to_string(PlayerID) + LadderD() + SnakeD() + BlackHD() + " ]";
+            std::cout << "[" + std::to_string(ID) + " " + printPlayer() + LadderD() + SnakeD() + BlackHD() + " ]";
         else
             std::cout << "[" + std::to_string(ID) + LadderD() + SnakeD() + BlackHD() + " ]";
     }
 }
 
 //Display Method Helper Methods
+std::string Block::printPlayer() {
+    if (!isPlayerOn())
+        return "";
+    else
+        return "Pl:" + std::to_string(PlayerID+1);
+}
+
 std::string Block::SnakeD(){
     if (SnakeStart)
         return "S~";

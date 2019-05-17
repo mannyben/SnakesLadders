@@ -50,7 +50,17 @@ public:
 
     void snake3(Player p);
 
-    void turn(Player p);
+    bool checkBlackHole(Player p);
+
+    void bH1(Player p);
+
+    void bH2(Player p);
+
+    void bH3(Player p);
+
+    void bH4(Player p);
+
+    void turn(Player &p);
 
     int rollDice();
 

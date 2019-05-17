@@ -90,12 +90,25 @@ Game::Game() {
 
 Game::~Game() {}
 
-void Game::turn (Player p) {
+void Game::turn (Player &p) {
     int rolled = rollDice();
+
+    std::cout << "Player " + std::to_string(p.getId()) + " rolled a " + std::to_string(rolled) << std::endl;
+
+
 
     if (p.getsqPos()==-1) {
         if (rolled==6) {
+            int oldx1 = p.getXpos();
+            int oldy1 = p.getYpos();
+
             p.setsqPos(0);
+
+            int newx1 = p.getXpos();
+            int newy1 = p.getYpos();
+
+            UpdateBoard(oldx1, oldy1, newx1, newy1, p);
+
             return;
         }
         else
@@ -103,6 +116,11 @@ void Game::turn (Player p) {
 
     }
     //Address the BHoled Condition
+
+
+
+
+
     if (p.isHoled()) {
         if (rolled != 6) {
             std::cout << "Player " + std::to_string(p.getId()) + " ur still stuck in the hole!" << std::endl;
@@ -110,6 +128,7 @@ void Game::turn (Player p) {
         }
         else {
             std::cout << "Player " + std::to_string(p.getId()) + " ur are out of the hole!" << std::endl;
+            p.setHoled(false);
             return;
         }
     }
@@ -127,7 +146,7 @@ void Game::turn (Player p) {
     UpdateBoard(oldx, oldy, newx, newy, p);
 
     if(checkLadder(p)) {
-        std::cout << "You have gone up" << std::endl;
+
         //NewPosition gets Player
         board[p.getXpos()][p.getYpos()].setPlayerOn(true);
         board[p.getXpos()][p.getYpos()].setPlayerId(p.getId());
@@ -139,6 +158,11 @@ void Game::turn (Player p) {
         board[p.getXpos()][p.getYpos()].setPlayerId(p.getId());
 
     }
+
+    if (checkBlackHole(p)) {
+        std::cout << "You are stuck in a blackhole" << std::endl;
+        p.setHoled(true);
+    }
 }
 
 int Game::rollDice()
@@ -148,6 +172,7 @@ int Game::rollDice()
     int max = 6;// this->dieSize; // the max value is the die size
 
     roll = rand() % (max - min + 1) + min;
+
 
     return roll;
 }
@@ -275,22 +300,77 @@ bool Game::checkSnake(Player p){
 
 }
 
+void Game::bH1(Player p){
+    p.setXpos(0);
+    p.setYpos(9);
+    p.setsqPos(9);
+}
+void Game::bH2(Player p){
+    p.setXpos(6);
+    p.setYpos(6);
+    p.setsqPos(66);
+}
+
+void Game::bH3(Player p){
+    p.setXpos(9);
+    p.setYpos(1);
+    p.setsqPos(91);
+}
+
+void Game::bH4(Player p){
+    p.setXpos(9);
+    p.setYpos(8);
+    p.setsqPos(98);
+}
+
+
+bool Game::checkBlackHole(Player p){
+    int x = p.getXpos();
+    int y = p.getYpos();
+    int sq = x * 10 + y;
+    int boardID1 = Game::board[0][9].getId();
+    int boardID2 = Game::board[6][6].getId();
+    int boardID3 = Game::board[9][1].getId();
+    int boardID4 = Game::board[9][8].getId();
+
+    if(boardID1 == sq) {
+        bH1(p);
+        return true;
+    }
+    else if(boardID2 == sq){
+        bH2(p);
+        return true;
+    }
+    else if(boardID3 == sq){
+        bH3(p);
+        return true;
+    }
+    else if(boardID4 == sq){
+        bH4(p);
+        return true;
+    }
+    else{
+        return false;
+    }
+
+
+}
+
 void Game::UpdateBoard(int xold, int yold, int xnew, int ynew, Player p){
 
     Game::board[xold][yold].setPlayerOn(false);
     Game::board[xold][yold].setPlayerId(-1);
 
 
-    Game::board[xold][yold].setPlayerOn(true);
-    Game::board[xold][yold].setPlayerId(p.getId());
+    Game::board[xnew][ynew].setPlayerOn(true);
+    Game::board[xnew][ynew].setPlayerId(p.getId());
 
 
 };
 
 
 bool Game::isPlaying() {
-    for (int i = 0; i<2; i++)
-        if(playerArray[i].won())
+        if(playerArray[0].won() || playerArray[1].won())
             return false;
 
     return true;
